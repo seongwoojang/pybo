@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pybo/', include('pybo.urls')),
     path('common/', include('common.urls')),
-    path('', base_views.index, name='index'), # / 페이지에 해당하는 urlpatterns
+    path('', base_views.index, name='index'),
 ]
+
+handler404 = 'common.views.page_not_found'
