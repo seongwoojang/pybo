@@ -24,6 +24,18 @@ $(document).ready(function(){
 });
 </script>
 {% endblock %}
+<style>
+    thead tr {
+    background-color: #950da1;
+    color: #ffffff;
+    }
+    * {
+    font-family: "Times New Roman"
+    }
+    a {
+    background-color: #950da1;
+    }
+</style>
 <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
 <div class="container my-3">
     <div class="row justify-content-between my-3">
@@ -51,12 +63,12 @@ $(document).ready(function(){
     </div>
     <table class="table">
         <thead>
-        <tr class="text-center thead-dark">
+        <tr class="text-center" >
             <th>번호</th>
-            <th>추천</th>
             <th style="width:50%">제목</th>
             <th>글쓴이</th>
             <th>작성일시</th>
+            <th>추천</th>
         </tr>
         </thead>
         <tbody>
@@ -64,13 +76,6 @@ $(document).ready(function(){
         {% for question in question_list %}
         <tr class="text-center">
             <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}
-            </td>
-            <td>
-                {% if question.voter.all.count > 0 %}
-                <span class="badge badge-warning px-2 py-1">
-                    {{ question.voter.all.count }}
-                </span>
-                {% endif %}
             </td>
             <td class="text-left">
                 <a href="{% url 'pybo:detail' question.id %}">
@@ -84,6 +89,13 @@ $(document).ready(function(){
             </td>
             <td>{{ question.author.username }}</td> <!-- 글쓴이 추가 -->
             <td>{{ question.create_date }}</td>
+            <td>
+                {% if question.voter.all.count > 0 %}
+                <span class="badge badge-warning px-2 py-1">
+                    {{ question.voter.all.count }}
+                </span>
+                {% endif %}
+            </td>
         </tr>
         {% endfor %}
         {% else %}
@@ -145,7 +157,7 @@ $(document).ready(function(){
         {% endif %}
     </ul>
     <!-- 페이징 처리 끝 -->
-    <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+    <a href="{% url 'pybo:question_create' %}" class="btn btn-primary">질문 등록</a>
 </div>
 <form id="searchForm" method="get" action="{% url 'index' %}">
     <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
