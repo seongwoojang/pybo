@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<style>
+    * {
+    font-family: "Times New Roman"
+    }
+</style>
 <div class="container my-3">
     <form method="post" class="post-form">
         {% csrf_token %}
